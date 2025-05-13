@@ -13,7 +13,7 @@ export default function Navbar() {
                     to={`/doc/${t.id}`}
                     className={({ isActive }) => (isActive ? 'active' : '')}
                 >
-                    {t.nombre} |
+                    {t.nombre} 
                 </NavLink>
 
 

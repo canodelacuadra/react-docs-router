@@ -7,11 +7,12 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-markup';
-import 'prismjs/themes/prism-solarizedlight.css';
+
 
 marked.setOptions({
     highlight: function (code, lang) {
         if (Prism.languages[lang]) {
+
             return Prism.highlight(code, Prism.languages[lang], lang);
         } else {
             return code; // sin resaltar si no se reconoce el lenguaje
@@ -32,6 +33,7 @@ export default function Doc() {
                 return res.text();
             })
             .then((text) => {
+
                 setContenido(marked(text));
                 setError(false);
             })
@@ -40,6 +42,12 @@ export default function Doc() {
                 setError(true);
             });
     }, [tema]);
+    // Ejecutar Prism después de que el contenido se renderice
+    useEffect(() => {
+        if (contenido) {
+            Prism.highlightAll();
+        }
+    }, [contenido]);
 
     if (error) {
         return (
